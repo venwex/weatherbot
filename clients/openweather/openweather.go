@@ -47,7 +47,7 @@ func (o OpenWeatherClient) Coordinates(city string) (Coordinates, error) {
 }
 
 func (o OpenWeatherClient) Weather(c Coordinates) (Weather, error) {
-	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s", 
+	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s",
     c.Lat, c.Lon, o.apiKey)
 
 	resp, err := http.Get(url)
@@ -69,5 +69,6 @@ func (o OpenWeatherClient) Weather(c Coordinates) (Weather, error) {
 
 	return Weather{
 		Temp: weatherResponse.Main.Temp,
+		Description: weatherResponse.Weather[0].Description,
 	}, nil
 }
