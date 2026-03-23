@@ -24,7 +24,7 @@ func NewUserRepo(db *sqlx.DB) *UserRepo {
 
 func (r *UserRepo) GetUserCity(ctx context.Context, userID int64) (string, error) {
 	var city string
-	if err := r.db.GetContext(ctx, &city, "select city from users where id = $1", userID); err != nil {
+	if err := r.db.GetContext(ctx, &city, "select coalesce(city, '') from users where id = $1", userID); err != nil {
 		return "", err
 	}
 
@@ -49,7 +49,7 @@ func (r *UserRepo) UpdateUserCity(ctx context.Context, userID int64, city string
 
 func (r *UserRepo) GetUser(ctx context.Context, userID int64) (*m.User, error) {
 	var user m.User
-	if err := r.db.GetContext(ctx, &user, "select * from users where id = $1", userID); err != nil {
+	if err := r.db.GetContext(ctx, &user, "select id, coalesce(city, '') as city, created_at from users where id = $1", userID); err != nil {
 
 		return &m.User{}, err
 	}
