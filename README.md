@@ -40,3 +40,9 @@ User: /weather
 Bot: Weather in Almaty — 18°C, clear sky
 
 ```
+
+## Try the Bot
+
+You can test the bot on Telegram:
+
+https://t.me/ww3eather_bot
